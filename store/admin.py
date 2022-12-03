@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Collection, Promotion, Product
 
-# Register your models here.
+admin.site.register(Collection)
+admin.site.register(Promotion)
+admin.site.register(Product)
