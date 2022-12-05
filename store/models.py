@@ -23,7 +23,6 @@ class Product(models.Model):
     GENDER_CHOICES = [('Man', 'Man'), ('Woman', 'Woman'), ('Kids', 'Kids')]
 
     title = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='store/images', validators=[validate_file_size])
     description = models.TextField(null=True, blank=True)
     price = models.DecimalField(max_digits=9, decimal_places=2, validators=[MinValueValidator(1)])
     inventory = models.IntegerField(validators=[MinValueValidator(0)])
@@ -37,3 +36,8 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['title']
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='store/images', validators=[validate_file_size])
