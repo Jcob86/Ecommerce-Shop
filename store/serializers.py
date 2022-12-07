@@ -5,7 +5,9 @@ from .models import Product, ProductImage, Collection, Promotion
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
-        fields = '__all__'
+        fields = ['id', 'title', 'products_count']
+
+    products_count = serializers.IntegerField(read_only=True)
 
 
 class ShowCollectionSerializer(serializers.ModelSerializer):
@@ -18,7 +20,6 @@ class ProductImageSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         product_id = self.context['product_id']
         return ProductImage.objects.create(product_id=product_id, **validated_data)
-        #  CHECK
     class Meta:
         model = ProductImage
         fields = ['id', 'image']
